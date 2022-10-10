@@ -38,8 +38,6 @@ redisClient.on("connect", async function () {
 });
 
 
-
-
 const SET_ASYNC = promisify(redisClient.SET).bind(redisClient);
 const GET_ASYNC = promisify(redisClient.GET).bind(redisClient);
 
@@ -56,7 +54,7 @@ const createUrl = async function (req, res) {
     //___________________________if body is empty___________________________
 
     if (!isValidRequest(data))
-      return res.status(400).send({ status: false, message: "Data required in request body it cant be empty!" });
+      return res.status(400).send({ status: false, message: "Data required in request body it can't be empty!" });
 
     if (!isValid(data)) return res.status(400).send({ status: false, message: "body is empty" });
 
@@ -88,9 +86,6 @@ const createUrl = async function (req, res) {
       await SET_ASYNC(`${longUrl}`, JSON.stringify(checklongUrl), 'EX', 60 * 2);
       return res.status(201).send({ status: true, message: "URL is already present ", data: checklongUrl })
     }
-
-
-
 
     // _________it is used to create unique id___________//
 
@@ -126,10 +121,7 @@ const createUrl = async function (req, res) {
 };
 
 
-
-
 //=====================================GET URL API=================================================
-// 
 
 //____________________REGEX for Url code_____________
 const isValidUrl = function (str) {
@@ -177,8 +169,6 @@ const getUrl = async function (req, res) {
     res.status(500).send({ status: false, message: err.message })
   }
 }
-
-
 
 
 module.exports = { createUrl, getUrl }
